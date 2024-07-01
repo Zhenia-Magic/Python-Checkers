@@ -4,6 +4,7 @@ from functools import lru_cache
 from os.path import exists
 
 from checkers.constants import WHITE, BLACK, TRANSPOSITION_TABLE_FILENAME
+import fickling
 
 
 class TranspositionTable:
@@ -61,7 +62,7 @@ class TranspositionTable:
         file_exists = exists(name)
         if file_exists:
             a_file = open(name, "rb")
-            self.d = pickle.load(a_file)
+            self.d = fickling.load(a_file)
 
 
 class TableEntry:
