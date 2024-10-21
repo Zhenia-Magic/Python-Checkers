@@ -1,4 +1,3 @@
-import random
 
 import pygame
 import pygame_menu
@@ -8,6 +7,7 @@ from checkers.game import Game
 from negamax.negamax import negamax
 from negamax.transposition_table import TranspositionTable
 from enum import Enum
+import secrets
 
 
 class Difficulty(Enum):
@@ -31,7 +31,7 @@ def get_row_col_from_mouse(pos):
 
 
 def random_move(game):
-    piece, move = random.choice(game.board.get_all_valid_moves(WHITE))
+    piece, move = secrets.choice(game.board.get_all_valid_moves(WHITE))
     if len(move[1]) > 0:
         game.board.remove(move[1])
     pygame.time.delay(1000)
@@ -77,13 +77,13 @@ def run_game(difficulty):
         if game.turn == WHITE:
             winner, run = has_move(game, run, WHITE)
             if difficulty == Difficulty.EASY.name:
-                if random.random() < 0.3:
+                if secrets.SystemRandom().random() < 0.3:
                     value, next_board = negamax(game.board, 5, WHITE, 1, game, alpha, beta, transposition_table)
                     game.board = next_board
                 else:
                     random_move(game)
             elif difficulty == Difficulty.MEDIUM.name:
-                if random.random() < 0.7:
+                if secrets.SystemRandom().random() < 0.7:
                     value, next_board = negamax(game.board, 5, WHITE, 1, game, alpha, beta, transposition_table)
                     game.board = next_board
                 else:
