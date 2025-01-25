@@ -1,9 +1,9 @@
 import pickle
-import random
 from functools import lru_cache
 from os.path import exists
 
 from checkers.constants import WHITE, BLACK, TRANSPOSITION_TABLE_FILENAME
+import secrets
 
 
 class TranspositionTable:
@@ -14,7 +14,7 @@ class TranspositionTable:
 
         # I used Zobrist Hashing to hash board configurations. It is a common way to hash board games states.
         # I took the implementation of Zobrist Hashing from https://iq.opengenus.org/zobrist-hashing-game-theory/
-        self.zobTable = [[[random.randint(1, 2**64 - 1) for _ in range(12)] for _ in range(8)] for _ in range(8)]
+        self.zobTable = [[[secrets.SystemRandom().randint(1, 2**64 - 1) for _ in range(12)] for _ in range(8)] for _ in range(8)]
 
     @staticmethod
     def index(piece):
